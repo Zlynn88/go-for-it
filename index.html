@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#DDF2FC">
+  <title>Go For It! – Math Challenge</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="brand" aria-label="Go For It">
+      <span class="brand-star">✦</span><span>Go For It!</span><span class="brand-star">✦</span>
+    </header>
+
+    <section id="welcome-screen" class="screen active">
+      <p class="eyebrow">A LITTLE MATH, A LOT OF FUN</p>
+      <h1>Ready to Challenge<br class="mobile-break"> Yourself?</h1>
+      <div class="mascot-wrap welcome-mascot">
+        <img class="mascot" src="assets/mascot/01_welcome.png" alt="Friendly Go For It monster">
+      </div>
+      <p class="section-label">CHOOSE YOUR CHALLENGE</p>
+      <div class="mode-row">
+        <button class="mode-button selected" data-mode="multiply" aria-pressed="true">× <small>MULTIPLY</small></button>
+        <button class="mode-button" data-mode="divide" aria-pressed="false">÷ <small>DIVIDE</small></button>
+      </div>
+      <button id="start-button" class="primary-button">START <span>➜</span></button>
+      <p class="tiny-note">Think fast. Have fun. Go for it!</p>
+    </section>
+
+    <section id="time-screen" class="screen">
+      <button class="back-button" id="back-home" aria-label="Back to welcome">←</button>
+      <p class="eyebrow">YOU'VE GOT THIS!</p>
+      <h1>Choose Your<br>Time</h1>
+      <div class="mascot-wrap small-mascot">
+        <img class="mascot" src="assets/mascot/02_thinking.png" alt="Monster thinking">
+      </div>
+      <p class="section-label">HOW LONG WILL YOU PLAY?</p>
+      <div class="time-grid">
+        <button class="time-button selected" data-time="30" aria-pressed="true">30 <small>SECONDS</small></button>
+        <button class="time-button" data-time="60" aria-pressed="false">60 <small>SECONDS</small></button>
+        <button class="time-button" data-time="90" aria-pressed="false">90 <small>SECONDS</small></button>
+        <button class="time-button" data-time="120" aria-pressed="false">120 <small>SECONDS</small></button>
+      </div>
+      <button id="begin-countdown" class="primary-button">LET'S GO! <span>➜</span></button>
+    </section>
+
+    <section id="countdown-screen" class="screen countdown-screen" aria-live="polite">
+      <p class="eyebrow">GET READY</p>
+      <div id="countdown-number" class="countdown-number">3</div>
+      <p class="countdown-caption">Your challenge is about to begin!</p>
+      <img class="countdown-mascot" src="assets/mascot/02_thinking.png" alt="">
+    </section>
+
+    <section id="game-screen" class="screen game-screen">
+      <div class="game-topline">
+        <div class="score-pill"><span class="pill-label">SCORE</span><strong id="score-value">0</strong></div>
+        <div id="timer" class="timer-pill" aria-live="off"><span>⏱</span><strong id="time-value">30</strong></div>
+      </div>
+      <div class="game-mascot-wrap">
+        <img id="game-mascot" class="game-mascot" src="assets/mascot/02_thinking.png" alt="Monster cheering you on">
+      </div>
+      <p class="question-label">SOLVE THIS!</p>
+      <div id="question" class="question">7 × 8 = ?</div>
+      <div class="answer-area" aria-label="Your answer">
+        <div id="answer-box-1" class="answer-box"></div>
+        <div id="answer-box-2" class="answer-box"></div>
+      </div>
+      <p id="feedback" class="feedback" aria-live="polite">Tap the numbers to answer</p>
+      <div class="keypad" aria-label="Number keypad">
+        <button class="number-key" data-digit="1">1</button>
+        <button class="number-key" data-digit="2">2</button>
+        <button class="number-key" data-digit="3">3</button>
+        <button class="number-key" data-digit="4">4</button>
+        <button class="number-key" data-digit="5">5</button>
+        <button class="number-key" data-digit="6">6</button>
+        <button class="number-key" data-digit="7">7</button>
+        <button class="number-key" data-digit="8">8</button>
+        <button class="number-key" data-digit="9">9</button>
+        <span class="key-spacer" aria-hidden="true"></span>
+        <button class="number-key zero-key" data-digit="0">0</button>
+        <span class="key-spacer" aria-hidden="true"></span>
+      </div>
+    </section>
+
+    <section id="result-screen" class="screen result-screen">
+      <p class="eyebrow">CHALLENGE COMPLETE</p>
+      <div class="result-mascot-wrap">
+        <img class="result-mascot" src="assets/mascot/04_victory.png" alt="Monster celebrating">
+      </div>
+      <h1 id="praise-message">Wonderful!</h1>
+      <p class="result-score-label">YOUR SCORE</p>
+      <div id="final-score" class="final-score">0</div>
+      <p class="result-subtitle">Correct answers</p>
+      <button id="play-again" class="primary-button">PLAY AGAIN <span>↻</span></button>
+    </section>
+    <footer class="footer-note">Made for curious minds <span>♡</span></footer>
+  </main>
+  <div id="confetti-layer" class="confetti-layer" aria-hidden="true"></div>
+  <script src="script.js"></script>
+</body>
+</html>
