@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 180" role="img" aria-label="PLAY AGAIN">
+<rect x="8" y="10" width="584" height="162" rx="58" fill="#A8D3B0"/>
+<rect x="8" y="8" width="584" height="140" rx="58" fill="#DCEBDD" stroke="#FFFFFF" stroke-width="6"/>
+<path d="M70 35 Q300 10 530 35" fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" opacity=".85"/>
+<text x="300" y="105" text-anchor="middle" font-family="Arial,sans-serif" font-size="66" font-weight="700" fill="#376D9D">PLAY AGAIN</text>
+</svg>

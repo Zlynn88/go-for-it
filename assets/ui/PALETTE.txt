@@ -1,0 +1,12 @@
+Go For It! palette
+Pastel Blue: #B9DDF0
+Deep Sky Blue: #78B8DA
+Cream: #FFF4DF
+Soft Cream: #FFF9EF
+Lavender: #E8DFF2
+Mint: #DCEBDD
+Success Green: #BFE8C9
+Text Blue: #376D9D
+
+SVGs are visual references. For real gameplay, buttons, timer, score and answer
+fields should be implemented as responsive HTML/CSS components with live text.

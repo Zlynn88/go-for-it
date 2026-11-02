@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 180" role="img" aria-label="30 seconds">
+<rect x="5" y="8" width="350" height="164" rx="42" fill="#78B8DA"/>
+<rect x="5" y="5" width="350" height="142" rx="42" fill="#B9DDF0" stroke="#FFFFFF" stroke-width="5"/>
+<text x="180" y="83" text-anchor="middle" font-family="Arial,sans-serif" font-size="58" font-weight="700" fill="#376D9D">30</text>
+<text x="180" y="119" text-anchor="middle" font-family="Arial,sans-serif" font-size="23" font-weight="600" fill="#55758D">SECONDS</text>
+</svg>
