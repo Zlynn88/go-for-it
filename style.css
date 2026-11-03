@@ -49,7 +49,7 @@ button:active{transform:translateY(3px) scale(.985)}
 .section-label,.question-label{font-size:clamp(12px,1.8vw,16px);letter-spacing:1.3px;font-weight:1000;color:#32668f;margin:10px 0 13px}
 .mode-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;width:100%;margin:0 auto 18px}
 .mode-button{min-width:0;background:transparent;padding:0;border-radius:26px;transition:transform .12s,filter .12s;filter:drop-shadow(0 7px 7px rgba(41,118,155,.16))}
-.mode-button img{display:block;width:100%;height:auto}
+.mode-button img{display:block;width:100%;height:auto}\n.mode-caption{display:block;margin:-3px 0 8px;font-size:clamp(10px,2.5vw,13px);font-weight:1000;letter-spacing:.7px;color:#376d9d}
 .mode-button.selected{filter:drop-shadow(0 0 0 #fff) drop-shadow(0 0 9px #fff) drop-shadow(0 7px 7px rgba(41,118,155,.2));transform:scale(1.035)}
 .primary-button{width:min(100%,440px);height:auto;min-height:62px;padding:0;background:transparent;margin:8px auto 3px;filter:drop-shadow(0 8px 8px rgba(34,109,157,.2));transition:transform .12s,filter .12s}
 .primary-button img{display:block;width:100%;max-height:120px;object-fit:contain}
@@ -126,8 +126,8 @@ button:active{transform:translateY(3px) scale(.985)}
  .welcome-layout{grid-template-columns:1fr;gap:4px;align-content:center}
  .hero-title{margin-bottom:3px}
  .welcome-mascot{height:clamp(180px,29vh,285px);min-height:160px}
- .welcome-controls{margin:-2px auto 0}
- .mode-row{width:min(100%,440px);gap:10px;margin-bottom:8px}
+ .welcome-controls{margin:-2px auto 0}\n .mode-row{max-width:480px}\n .mode-button img{width:100%}
+ .mode-row{width:min(100%,480px);gap:12px;margin-bottom:8px}\n .mode-button{padding:0 0 2px}\n .mode-caption{margin:0 0 3px;font-size:clamp(11px,2.8vw,14px);letter-spacing:.45px}
  .primary-button{width:min(100%,420px);margin:4px auto}
  .time-screen{justify-content:flex-start}
  .screen-heading{margin-top:14px}
@@ -142,8 +142,10 @@ button:active{transform:translateY(3px) scale(.985)}
  .answer-area{padding:7px 12px;border-radius:22px}
  .answer-box{height:47px;width:58px;border-radius:15px}
  .feedback{font-size:11px;min-height:17px;margin:3px 0 0}
- .keypad{width:min(100%,355px);gap:2px 8px;margin:7px auto 0}
- .number-key{max-height:70px}
+ .keypad{width:min(100%,330px);grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(4,clamp(54px,7.2vh,82px));gap:5px 8px;margin:7px auto 4px}
+ .number-key{width:100%;height:100%;min-height:0;max-height:none;overflow:hidden}
+ .number-key img{width:100%;height:100%;object-fit:fill}
+ .key-spacer{height:100%}
  .game-topline{margin:1px 0 6px}
  .score-pill,.timer-pill{height:54px;min-width:112px;padding:3px 12px}
  .timer-pill{min-width:135px}
@@ -161,7 +163,7 @@ button:active{transform:translateY(3px) scale(.985)}
  .time-mascot-wrap{height:95px}
  .score-pill,.timer-pill{min-width:104px;height:49px}
  .timer-pill{min-width:125px}
- .keypad{gap:0 6px}
+ .keypad{width:min(100%,300px);grid-template-rows:repeat(4,clamp(50px,7vh,70px));gap:4px 6px}
  .question-panel{padding:8px}
 }
 @media(orientation:landscape) and (min-width:651px){
