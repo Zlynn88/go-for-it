@@ -34,7 +34,8 @@ button:active{transform:translateY(3px) scale(.985)}
 .star-a{top:16%;left:3%;transform:rotate(-14deg)}.star-b{top:28%;right:3%;transform:rotate(13deg)}
 .decor-cloud{width:clamp(105px,18vw,190px);height:90px;background-image:url("assets/ui/cloud.svg");opacity:.82}
 .cloud-a{top:5%;left:-28px}.cloud-b{bottom:4%;right:-32px;transform:scale(1.2)}
-.welcome-screen{background:transparent url("assets/ui/background_welcome.svg") center/cover no-repeat}\n.screen{display:none;flex:1;width:100%;flex-direction:column;align-items:center;text-align:center;position:relative;animation:screenIn .35s ease both;z-index:1}
+.welcome-screen{background:transparent url("assets/ui/background_welcome.svg") center/cover no-repeat}
+.screen{display:none;flex:1;width:100%;flex-direction:column;align-items:center;text-align:center;position:relative;animation:screenIn .35s ease both;z-index:1}
 .screen.active{display:flex}
 @keyframes screenIn{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
 .eyebrow{font-size:clamp(13px,2vw,18px);letter-spacing:1.2px;font-weight:1000;color:#32668f;margin:10px 0 6px}
