@@ -3,50 +3,75 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#DDF2FC">
+  <meta name="theme-color" content="#A8E8F8">
   <title>Go For It! – Math Challenge</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900;1000&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <main class="app-shell">
-    <header class="brand" aria-label="Go For It">
-      <span class="brand-star">✦</span><span>Go For It!</span><span class="brand-star">✦</span>
+    <div class="decor decor-star star-a" aria-hidden="true"></div>
+    <div class="decor decor-star star-b" aria-hidden="true"></div>
+    <div class="decor decor-cloud cloud-a" aria-hidden="true"></div>
+    <div class="decor decor-cloud cloud-b" aria-hidden="true"></div>
+
+    <header class="brand" aria-label="Go For It!">
+      <span class="brand-spark">✦</span><span class="brand-word">Go For It!</span><span class="brand-spark">✦</span>
     </header>
 
-    <section id="welcome-screen" class="screen active">
-      <p class="eyebrow">A LITTLE MATH, A LOT OF FUN</p>
-      <h1>Ready to Challenge<br class="mobile-break"> Yourself?</h1>
-      <div class="mascot-wrap welcome-mascot">
-        <img class="mascot" src="assets/mascot/01_welcome.png" alt="Friendly Go For It monster">
+    <section id="welcome-screen" class="screen welcome-screen active">
+      <div class="hero-title">
+        <p class="eyebrow">READY TO CHALLENGE YOURSELF?</p>
       </div>
-      <p class="section-label">CHOOSE YOUR CHALLENGE</p>
-      <div class="mode-row">
-        <button class="mode-button selected" data-mode="multiply" aria-pressed="true">× <small>MULTIPLY</small></button>
-        <button class="mode-button" data-mode="divide" aria-pressed="false">÷ <small>DIVIDE</small></button>
+      <div class="welcome-layout">
+        <div class="mascot-wrap welcome-mascot">
+          <img class="mascot" src="assets/mascot/01_welcome.png" alt="Friendly Go For It monster">
+        </div>
+        <div class="welcome-controls">
+          <p class="section-label">CHOOSE YOUR CHALLENGE</p>
+          <div class="mode-row">
+            <button class="mode-button selected" data-mode="multiply" aria-pressed="true">
+              <img src="assets/ui/button_multiply.svg" alt="" aria-hidden="true"><span class="sr-only">Multiplication</span>
+            </button>
+            <button class="mode-button" data-mode="divide" aria-pressed="false">
+              <img src="assets/ui/button_divide.svg" alt="" aria-hidden="true"><span class="sr-only">Division</span>
+            </button>
+          </div>
+          <button id="start-button" class="primary-button start-button">
+            <img src="assets/ui/button_start.svg" alt="" aria-hidden="true"><span class="sr-only">Start</span>
+          </button>
+          <p class="tiny-note">Think fast. Have fun. Go for it!</p>
+        </div>
       </div>
-      <button id="start-button" class="primary-button">START <span>➜</span></button>
-      <p class="tiny-note">Think fast. Have fun. Go for it!</p>
     </section>
 
-    <section id="time-screen" class="screen">
-      <button class="back-button" id="back-home" aria-label="Back to welcome">←</button>
-      <p class="eyebrow">YOU'VE GOT THIS!</p>
-      <h1>Choose Your<br>Time</h1>
-      <div class="mascot-wrap small-mascot">
-        <img class="mascot" src="assets/mascot/02_thinking.png" alt="Monster thinking">
+    <section id="time-screen" class="screen time-screen">
+      <button class="back-button" id="back-home" aria-label="Back to welcome">
+        <img src="assets/ui/button_back.svg" alt="" aria-hidden="true">
+      </button>
+      <div class="screen-heading">
+        <p class="eyebrow">GO FOR IT!</p>
+        <h1>Choose Your Time</h1>
+      </div>
+      <div class="time-mascot-wrap">
+        <img class="time-mascot" src="assets/mascot/02_thinking.png" alt="Monster thinking">
       </div>
       <p class="section-label">HOW LONG WILL YOU PLAY?</p>
       <div class="time-grid">
-        <button class="time-button selected" data-time="30" aria-pressed="true">30 <small>SECONDS</small></button>
-        <button class="time-button" data-time="60" aria-pressed="false">60 <small>SECONDS</small></button>
-        <button class="time-button" data-time="90" aria-pressed="false">90 <small>SECONDS</small></button>
-        <button class="time-button" data-time="120" aria-pressed="false">120 <small>SECONDS</small></button>
+        <button class="time-button selected" data-time="30" aria-pressed="true"><img src="assets/ui/time_30s.svg" alt=""><span class="sr-only">30 seconds</span></button>
+        <button class="time-button" data-time="60" aria-pressed="false"><img src="assets/ui/time_60s.svg" alt=""><span class="sr-only">60 seconds</span></button>
+        <button class="time-button" data-time="90" aria-pressed="false"><img src="assets/ui/time_90s.svg" alt=""><span class="sr-only">90 seconds</span></button>
+        <button class="time-button" data-time="120" aria-pressed="false"><img src="assets/ui/time_120s.svg" alt=""><span class="sr-only">120 seconds</span></button>
       </div>
-      <button id="begin-countdown" class="primary-button">LET'S GO! <span>➜</span></button>
+      <button id="begin-countdown" class="primary-button start-button">
+        <img src="assets/ui/button_start.svg" alt="" aria-hidden="true"><span class="sr-only">Start challenge</span>
+      </button>
     </section>
 
     <section id="countdown-screen" class="screen countdown-screen" aria-live="polite">
-      <p class="eyebrow">GET READY</p>
+      <p class="eyebrow">GET READY!</p>
       <div id="countdown-number" class="countdown-number">3</div>
       <p class="countdown-caption">Your challenge is about to begin!</p>
       <img class="countdown-mascot" src="assets/mascot/02_thinking.png" alt="">
@@ -54,32 +79,42 @@
 
     <section id="game-screen" class="screen game-screen">
       <div class="game-topline">
-        <div class="score-pill"><span class="pill-label">SCORE</span><strong id="score-value">0</strong></div>
-        <div id="timer" class="timer-pill" aria-live="off"><span>⏱</span><strong id="time-value">30</strong></div>
+        <div class="score-pill">
+          <img src="assets/ui/score_badge_dynamic.svg" alt="" aria-hidden="true">
+          <span class="score-live"><span class="pill-label">SCORE</span><strong id="score-value">0</strong></span>
+        </div>
+        <div id="timer" class="timer-pill" aria-live="off">
+          <img src="assets/ui/timer_badge_dynamic.svg" alt="" aria-hidden="true">
+          <strong id="time-value">30</strong><span class="timer-unit">SEC</span>
+        </div>
       </div>
-      <div class="game-mascot-wrap">
-        <img id="game-mascot" class="game-mascot" src="assets/mascot/02_thinking.png" alt="Monster cheering you on">
-      </div>
-      <p class="question-label">SOLVE THIS!</p>
-      <div id="question" class="question">7 × 8 = ?</div>
-      <div class="answer-area" aria-label="Your answer">
-        <div id="answer-box-1" class="answer-box"></div>
-        <div id="answer-box-2" class="answer-box"></div>
-      </div>
-      <p id="feedback" class="feedback" aria-live="polite">Tap the numbers to answer</p>
-      <div class="keypad" aria-label="Number keypad">
-        <button class="number-key" data-digit="1">1</button>
-        <button class="number-key" data-digit="2">2</button>
-        <button class="number-key" data-digit="3">3</button>
-        <button class="number-key" data-digit="4">4</button>
-        <button class="number-key" data-digit="5">5</button>
-        <button class="number-key" data-digit="6">6</button>
-        <button class="number-key" data-digit="7">7</button>
-        <button class="number-key" data-digit="8">8</button>
-        <button class="number-key" data-digit="9">9</button>
-        <span class="key-spacer" aria-hidden="true"></span>
-        <button class="number-key zero-key" data-digit="0">0</button>
-        <span class="key-spacer" aria-hidden="true"></span>
+      <div class="game-main">
+        <div class="game-mascot-wrap">
+          <img id="game-mascot" class="game-mascot" src="assets/mascot/02_thinking.png" alt="Monster cheering you on">
+        </div>
+        <div class="question-panel">
+          <p class="question-label">SOLVE THIS!</p>
+          <div id="question" class="question">7 × 8 = ?</div>
+          <div class="answer-area" aria-label="Your answer">
+            <div id="answer-box-1" class="answer-box"></div>
+            <div id="answer-box-2" class="answer-box"></div>
+          </div>
+          <p id="feedback" class="feedback" aria-live="polite">Tap the numbers to answer</p>
+        </div>
+        <div class="keypad" aria-label="Number keypad">
+          <button class="number-key" data-digit="1"><img src="assets/ui/key_1.svg" alt=""><span class="sr-only">1</span></button>
+          <button class="number-key" data-digit="2"><img src="assets/ui/key_2.svg" alt=""><span class="sr-only">2</span></button>
+          <button class="number-key" data-digit="3"><img src="assets/ui/key_3.svg" alt=""><span class="sr-only">3</span></button>
+          <button class="number-key" data-digit="4"><img src="assets/ui/key_4.svg" alt=""><span class="sr-only">4</span></button>
+          <button class="number-key" data-digit="5"><img src="assets/ui/key_5.svg" alt=""><span class="sr-only">5</span></button>
+          <button class="number-key" data-digit="6"><img src="assets/ui/key_6.svg" alt=""><span class="sr-only">6</span></button>
+          <button class="number-key" data-digit="7"><img src="assets/ui/key_7.svg" alt=""><span class="sr-only">7</span></button>
+          <button class="number-key" data-digit="8"><img src="assets/ui/key_8.svg" alt=""><span class="sr-only">8</span></button>
+          <button class="number-key" data-digit="9"><img src="assets/ui/key_9.svg" alt=""><span class="sr-only">9</span></button>
+          <span class="key-spacer" aria-hidden="true"></span>
+          <button class="number-key zero-key" data-digit="0"><img src="assets/ui/key_0.svg" alt=""><span class="sr-only">0</span></button>
+          <span class="key-spacer" aria-hidden="true"></span>
+        </div>
       </div>
     </section>
 
@@ -88,13 +123,21 @@
       <div class="result-mascot-wrap">
         <img class="result-mascot" src="assets/mascot/04_victory.png" alt="Monster celebrating">
       </div>
-      <h1 id="praise-message">Wonderful!</h1>
+      <div class="result-message-wrap">
+        <img id="result-message-art" class="result-message-art" src="assets/ui/result_message_2.svg" alt="Wonderful!">
+        <h1 id="praise-message" class="sr-only">Wonderful!</h1>
+      </div>
       <p class="result-score-label">YOUR SCORE</p>
-      <div id="final-score" class="final-score">0</div>
+      <div class="final-score-wrap">
+        <img src="assets/ui/score_badge_dynamic.svg" alt="" aria-hidden="true">
+        <strong id="final-score" class="final-score">0</strong>
+      </div>
       <p class="result-subtitle">Correct answers</p>
-      <button id="play-again" class="primary-button">PLAY AGAIN <span>↻</span></button>
+      <button id="play-again" class="primary-button play-again-button">
+        <img src="assets/ui/button_play_again.svg" alt="" aria-hidden="true"><span class="sr-only">Play again</span>
+      </button>
     </section>
-    <footer class="footer-note">Made for curious minds <span>♡</span></footer>
+    <footer class="footer-note">MADE FOR CURIOUS MINDS <span>♡</span></footer>
   </main>
   <div id="confetti-layer" class="confetti-layer" aria-hidden="true"></div>
   <script src="script.js"></script>

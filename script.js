@@ -2,7 +2,12 @@
   "use strict";
   const $ = (id) => document.getElementById(id);
   const screens = ["welcome-screen","time-screen","countdown-screen","game-screen","result-screen"];
-  const praise = ["Terrific!","Wonderful!","Excellent!","You are a genius!"];
+  const praise = [
+    { text: "Terrific!", image: "assets/ui/result_message_1.svg" },
+    { text: "Wonderful!", image: "assets/ui/result_message_2.svg" },
+    { text: "Excellent!", image: "assets/ui/result_message_3.svg" },
+    { text: "You are a genius!", image: "assets/ui/result_message_4.svg" }
+  ];
   let mode = "multiply";
   let duration = 30;
   let remaining = duration;
@@ -126,13 +131,17 @@
       typed = "";
       renderAnswer();
       $("feedback").textContent = "Try again!";
+      $("game-mascot").src = "assets/mascot/05_encouragement.png";
     }
   }
   function finishGame() {
     stopTimers();
     locked = true;
     $("final-score").textContent = score;
-    $("praise-message").textContent = praise[Math.floor(Math.random()*praise.length)];
+    const praiseChoice = praise[Math.floor(Math.random()*praise.length)];
+    $("praise-message").textContent = praiseChoice.text;
+    $("result-message-art").src = praiseChoice.image;
+    $("result-message-art").alt = praiseChoice.text;
     showScreen("result-screen");
     launchConfetti();
   }
