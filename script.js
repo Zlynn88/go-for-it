@@ -17,6 +17,7 @@
   let timerId = null;
   let countdownId = null;
   let locked = false;
+  let gameFinished = false;
   let questionToken = 0;
   let boardMode = "multiply";
   let boardDuration = 30;
@@ -68,6 +69,7 @@
   function startGame() {
     stopTimers();
     score = 0;
+    gameFinished = false;
     remaining = duration;
     $("score-value").textContent = score;
     updateTimer();
@@ -140,16 +142,25 @@
     }
   }
   function finishGame() {
+    // Guard against duplicate timer callbacks and freeze gameplay immediately.
+    if (gameFinished) return;
+    gameFinished = true;
+    remaining = 0;
     stopTimers();
     locked = true;
-    $("final-score").textContent = score;
-    saveScoreAutomatically();
-    const praiseChoice = praise[Math.floor(Math.random()*praise.length)];
+
+    // Show the result screen first so a storage problem can never leave the game
+    // stranded on the question screen when the timer reaches zero.
+    $("final-score").textContent = String(score);
+    const praiseChoice = praise[Math.floor(Math.random() * praise.length)];
     $("praise-message").textContent = praiseChoice.text;
     $("result-message-art").src = praiseChoice.image;
     $("result-message-art").alt = praiseChoice.text;
     showScreen("result-screen");
     launchConfetti();
+
+    // Saving is automatic and isolated from screen navigation/celebration.
+    saveScoreAutomatically();
   }
 
   function readBoards() {
@@ -166,18 +177,19 @@
     return `${day}/${month}/${d.getFullYear()}`;
   }
   function saveScoreAutomatically() {
-    const boards = readBoards();
-    const key = boardKey(mode, duration);
-    const entries = Array.isArray(boards[key]) ? boards[key] : [];
-    const now = new Date();
-    entries.push({ score, date: formatDate(now), timestamp: now.getTime() });
-    entries.sort((a, b) => b.score - a.score || a.timestamp - b.timestamp);
-    boards[key] = entries.slice(0, 10);
+    const status = $("save-status");
     try {
+      const boards = readBoards();
+      const key = boardKey(mode, duration);
+      const entries = Array.isArray(boards[key]) ? boards[key] : [];
+      const now = new Date();
+      entries.push({ score, date: formatDate(now), timestamp: now.getTime() });
+      entries.sort((a, b) => Number(b.score) - Number(a.score) || Number(a.timestamp) - Number(b.timestamp));
+      boards[key] = entries.slice(0, 10);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(boards));
-      $("save-status").textContent = "Score saved automatically on this device!";
+      if (status) status.textContent = "Score saved automatically on this device!";
     } catch (_) {
-      $("save-status").textContent = "Could not save. Browser storage may be unavailable.";
+      if (status) status.textContent = "Your result is ready, but this browser could not save the score.";
     }
   }
   function renderBoard(nextMode=boardMode, nextDuration=boardDuration) {
