@@ -19,8 +19,10 @@
   let locked = false;
   let questionToken = 0;
   let boardMode = "multiply";
-  let scoreSaved = false;
-  const STORAGE_KEY = "goForItMathTop10_v1";
+  let boardDuration = 30;
+  const STORAGE_KEY = "goForItMathTop10_v2";
+  // Start the revised leaderboard fresh; remove the previous named-score table.
+  try { localStorage.removeItem("goForItMathTop10_v1"); } catch (_) {}
 
   function showScreen(id) {
     screens.forEach(name => $(name).classList.toggle("active", name === id));
@@ -141,7 +143,7 @@
     stopTimers();
     locked = true;
     $("final-score").textContent = score;
-    scoreSaved = false; $("player-name").value = ""; $("save-score").disabled = false; $("save-status").textContent = "Save your score to the local TOP 10";
+    saveScoreAutomatically();
     const praiseChoice = praise[Math.floor(Math.random()*praise.length)];
     $("praise-message").textContent = praiseChoice.text;
     $("result-message-art").src = praiseChoice.image;
@@ -151,28 +153,50 @@
   }
 
   function readBoards() {
-    try { const value = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); return { multiply: Array.isArray(value.multiply) ? value.multiply : [], divide: Array.isArray(value.divide) ? value.divide : [] }; }
-    catch (_) { return { multiply: [], divide: [] }; }
+    try {
+      const value = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+      return value && typeof value === "object" ? value : {};
+    } catch (_) { return {}; }
   }
-  function saveScore() {
-    if (scoreSaved) { $("save-status").textContent = "This score has already been saved."; return; }
-    const name = ($("player-name").value || "Player").trim().slice(0,16) || "Player";
+  function boardKey(board, seconds) { return `${board}_${seconds}`; }
+  function formatDate(date) {
+    const d = new Date(date);
+    const day = String(d.getDate()).padStart(2, "0");
+    const month = String(d.getMonth() + 1).padStart(2, "0");
+    return `${day}/${month}/${d.getFullYear()}`;
+  }
+  function saveScoreAutomatically() {
     const boards = readBoards();
-    boards[mode].push({ name, score, date: new Date().toISOString() });
-    boards[mode].sort((a,b) => b.score - a.score || a.date.localeCompare(b.date));
-    boards[mode] = boards[mode].slice(0,10);
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(boards)); scoreSaved = true; $("save-status").textContent = "Saved on this device!"; $("save-score").disabled = true; }
-    catch (_) { $("save-status").textContent = "Could not save. Browser storage may be unavailable."; }
+    const key = boardKey(mode, duration);
+    const entries = Array.isArray(boards[key]) ? boards[key] : [];
+    const now = new Date();
+    entries.push({ score, date: formatDate(now), timestamp: now.getTime() });
+    entries.sort((a, b) => b.score - a.score || a.timestamp - b.timestamp);
+    boards[key] = entries.slice(0, 10);
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(boards));
+      $("save-status").textContent = "Score saved automatically on this device!";
+    } catch (_) {
+      $("save-status").textContent = "Could not save. Browser storage may be unavailable.";
+    }
   }
-  function renderBoard(nextMode) {
+  function renderBoard(nextMode=boardMode, nextDuration=boardDuration) {
     boardMode = nextMode;
+    boardDuration = Number(nextDuration);
     document.querySelectorAll(".leader-tab").forEach(btn => btn.classList.toggle("selected", btn.dataset.board === boardMode));
+    document.querySelectorAll(".leader-time-tab").forEach(btn => btn.classList.toggle("selected", Number(btn.dataset.duration) === boardDuration));
     const list = $("leaderboard-list"); list.innerHTML = "";
-    const entries = readBoards()[boardMode];
-    if (!entries.length) { const li = document.createElement("li"); li.className = "empty-board"; li.textContent = "No scores yet. Play a game and save your score!"; list.appendChild(li); return; }
-    entries.forEach((entry, i) => { const li = document.createElement("li"); li.className = "leader-entry"; const rank = document.createElement("span"); rank.className = "leader-rank"; rank.textContent = String(i+1); const name = document.createElement("span"); name.className = "leader-name"; name.textContent = entry.name; const points = document.createElement("strong"); points.className = "leader-points"; points.textContent = String(entry.score); li.append(rank,name,points); list.appendChild(li); });
+    const entries = readBoards()[boardKey(boardMode, boardDuration)] || [];
+    if (!entries.length) { const li = document.createElement("li"); li.className = "empty-board"; li.textContent = "No scores yet. Play a game to add your first score!"; list.appendChild(li); return; }
+    entries.forEach((entry, i) => {
+      const li = document.createElement("li"); li.className = "leader-entry";
+      const rank = document.createElement("span"); rank.className = "leader-rank"; rank.textContent = String(i+1);
+      const date = document.createElement("span"); date.className = "leader-date"; date.textContent = entry.date || "—";
+      const points = document.createElement("strong"); points.className = "leader-points"; points.textContent = String(entry.score);
+      li.append(rank,date,points); list.appendChild(li);
+    });
   }
-  function openBoard(nextMode=mode) { renderBoard(nextMode); showScreen("leaderboard-screen"); }
+  function openBoard(nextMode=mode) { renderBoard(nextMode, duration); showScreen("leaderboard-screen"); }
 
   function launchConfetti() {
     const layer = $("confetti-layer");
@@ -198,10 +222,10 @@
   $("start-button").addEventListener("click", () => { showScreen("time-screen"); });
   $("back-home").addEventListener("click", () => showScreen("welcome-screen"));
   $("begin-countdown").addEventListener("click", startCountdown);
-  $("save-score").addEventListener("click", saveScore);
   $("open-leaderboard").addEventListener("click", () => openBoard("multiply"));
   $("view-leaderboard").addEventListener("click", () => openBoard(mode));
-  document.querySelectorAll(".leader-tab").forEach(btn => btn.addEventListener("click", () => renderBoard(btn.dataset.board)));
+  document.querySelectorAll(".leader-tab").forEach(btn => btn.addEventListener("click", () => renderBoard(btn.dataset.board, boardDuration)));
+  document.querySelectorAll(".leader-time-tab").forEach(btn => btn.addEventListener("click", () => renderBoard(boardMode, btn.dataset.duration)));
   $("leaderboard-back").addEventListener("click", () => showScreen("welcome-screen"));
   $("leaderboard-done").addEventListener("click", () => showScreen("welcome-screen"));
   $("play-again").addEventListener("click", () => {
