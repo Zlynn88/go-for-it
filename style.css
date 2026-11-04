@@ -175,3 +175,21 @@ button:active{transform:translateY(3px) scale(.985)}
  .game-mascot-wrap{height:min(42vh,300px)}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
+
+/* Local TOP 10 leaderboard */
+.text-button{border:0;background:rgba(255,255,255,.78);color:#39749a;font:900 13px Nunito,sans-serif;padding:10px 16px;border-radius:22px;box-shadow:0 3px 0 rgba(55,120,160,.16);margin:5px auto;cursor:pointer}
+.score-save-row{display:flex;gap:8px;align-items:center;justify-content:center;width:min(92%,390px);margin:4px auto}
+.score-save-row input{min-width:0;flex:1;border:2px solid #a8d9ee;border-radius:14px;padding:10px 12px;font:800 14px Nunito,sans-serif;color:#32668f;background:#fff}
+.small-action{border:0;border-radius:14px;background:#69c9e5;color:#fff;padding:11px 14px;font:1000 12px Nunito,sans-serif;box-shadow:0 3px 0 #3ba4c5;cursor:pointer}
+.small-action:disabled{opacity:.55}
+.save-status,.leaderboard-note{font-size:11px;color:#5683a1;font-weight:800;margin:2px auto 5px}
+.leaderboard-screen{justify-content:flex-start;padding:14px 8px 20px;background:transparent url("assets/ui/background_result.svg") center/cover no-repeat}
+.leaderboard-title{font-size:clamp(30px,7vw,44px);color:#7655b6;margin:4px 0 12px;font-weight:1000}
+.leaderboard-tabs{display:flex;gap:8px;width:min(100%,520px);margin:4px auto 12px}
+.leader-tab{flex:1;min-width:0;border:2px solid #b5dff0;background:#fff;color:#47789c;border-radius:15px;padding:10px 5px;font:900 11px Nunito,sans-serif}
+.leader-tab.selected{background:#ffe8a9;border-color:#f0c76e;color:#805b22}
+.leaderboard-list{list-style:none;padding:0;margin:0 auto;width:min(100%,520px);display:flex;flex-direction:column;gap:6px}
+.leader-entry{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.9);border:1px solid #d6edf6;border-radius:13px;padding:9px 13px;color:#47789c;font-weight:900;text-align:left}
+.leader-rank{width:25px;height:25px;display:grid;place-items:center;border-radius:50%;background:#ffe7a8;color:#8b6427}
+.leader-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.leader-points{font-size:19px;color:#0876bd}.empty-board{padding:25px 14px;background:rgba(255,255,255,.8);border-radius:15px;color:#5683a1;font-weight:800}
+@media(max-width:650px){.result-screen .score-save-row{margin:2px auto}.leaderboard-screen{padding-top:12px}.leaderboard-tabs{gap:5px}.leader-tab{font-size:10px;padding:9px 3px}}

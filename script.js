@@ -1,7 +1,7 @@
 (() => {
   "use strict";
   const $ = (id) => document.getElementById(id);
-  const screens = ["welcome-screen","time-screen","countdown-screen","game-screen","result-screen"];
+  const screens = ["welcome-screen","time-screen","countdown-screen","game-screen","result-screen","leaderboard-screen"];
   const praise = [
     { text: "Terrific!", image: "assets/ui/result_message_1.svg" },
     { text: "Wonderful!", image: "assets/ui/result_message_2.svg" },
@@ -18,6 +18,9 @@
   let countdownId = null;
   let locked = false;
   let questionToken = 0;
+  let boardMode = "multiply";
+  let scoreSaved = false;
+  const STORAGE_KEY = "goForItMathTop10_v1";
 
   function showScreen(id) {
     screens.forEach(name => $(name).classList.toggle("active", name === id));
@@ -138,6 +141,7 @@
     stopTimers();
     locked = true;
     $("final-score").textContent = score;
+    scoreSaved = false; $("player-name").value = ""; $("save-score").disabled = false; $("save-status").textContent = "Save your score to the local TOP 10";
     const praiseChoice = praise[Math.floor(Math.random()*praise.length)];
     $("praise-message").textContent = praiseChoice.text;
     $("result-message-art").src = praiseChoice.image;
@@ -145,6 +149,31 @@
     showScreen("result-screen");
     launchConfetti();
   }
+
+  function readBoards() {
+    try { const value = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); return { multiply: Array.isArray(value.multiply) ? value.multiply : [], divide: Array.isArray(value.divide) ? value.divide : [] }; }
+    catch (_) { return { multiply: [], divide: [] }; }
+  }
+  function saveScore() {
+    if (scoreSaved) { $("save-status").textContent = "This score has already been saved."; return; }
+    const name = ($("player-name").value || "Player").trim().slice(0,16) || "Player";
+    const boards = readBoards();
+    boards[mode].push({ name, score, date: new Date().toISOString() });
+    boards[mode].sort((a,b) => b.score - a.score || a.date.localeCompare(b.date));
+    boards[mode] = boards[mode].slice(0,10);
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(boards)); scoreSaved = true; $("save-status").textContent = "Saved on this device!"; $("save-score").disabled = true; }
+    catch (_) { $("save-status").textContent = "Could not save. Browser storage may be unavailable."; }
+  }
+  function renderBoard(nextMode) {
+    boardMode = nextMode;
+    document.querySelectorAll(".leader-tab").forEach(btn => btn.classList.toggle("selected", btn.dataset.board === boardMode));
+    const list = $("leaderboard-list"); list.innerHTML = "";
+    const entries = readBoards()[boardMode];
+    if (!entries.length) { const li = document.createElement("li"); li.className = "empty-board"; li.textContent = "No scores yet. Play a game and save your score!"; list.appendChild(li); return; }
+    entries.forEach((entry, i) => { const li = document.createElement("li"); li.className = "leader-entry"; const rank = document.createElement("span"); rank.className = "leader-rank"; rank.textContent = String(i+1); const name = document.createElement("span"); name.className = "leader-name"; name.textContent = entry.name; const points = document.createElement("strong"); points.className = "leader-points"; points.textContent = String(entry.score); li.append(rank,name,points); list.appendChild(li); });
+  }
+  function openBoard(nextMode=mode) { renderBoard(nextMode); showScreen("leaderboard-screen"); }
+
   function launchConfetti() {
     const layer = $("confetti-layer");
     layer.innerHTML = "";
@@ -169,6 +198,12 @@
   $("start-button").addEventListener("click", () => { showScreen("time-screen"); });
   $("back-home").addEventListener("click", () => showScreen("welcome-screen"));
   $("begin-countdown").addEventListener("click", startCountdown);
+  $("save-score").addEventListener("click", saveScore);
+  $("open-leaderboard").addEventListener("click", () => openBoard("multiply"));
+  $("view-leaderboard").addEventListener("click", () => openBoard(mode));
+  document.querySelectorAll(".leader-tab").forEach(btn => btn.addEventListener("click", () => renderBoard(btn.dataset.board)));
+  $("leaderboard-back").addEventListener("click", () => showScreen("welcome-screen"));
+  $("leaderboard-done").addEventListener("click", () => showScreen("welcome-screen"));
   $("play-again").addEventListener("click", () => {
     stopTimers();
     $("confetti-layer").classList.remove("show");

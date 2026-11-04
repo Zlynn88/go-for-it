@@ -43,6 +43,7 @@
             <img src="assets/ui/button_start.svg" alt="" aria-hidden="true"><span class="sr-only">Start</span>
           </button>
           <p class="tiny-note">Think fast. Have fun. Go for it!</p>
+          <button id="open-leaderboard" class="text-button">🏆 TOP 10 HIGH SCORES</button>
         </div>
       </div>
     </section>
@@ -133,9 +134,21 @@
         <strong id="final-score" class="final-score">0</strong>
       </div>
       <p class="result-subtitle">Correct answers</p>
+      <div class="score-save-row"><label class="sr-only" for="player-name">Player name</label><input id="player-name" maxlength="16" placeholder="Your name" autocomplete="nickname"><button id="save-score" class="small-action">SAVE SCORE</button></div>
+      <p id="save-status" class="save-status" aria-live="polite">Save your score to the local TOP 10</p>
+      <button id="view-leaderboard" class="text-button">🏆 VIEW TOP 10</button>
       <button id="play-again" class="primary-button play-again-button">
         <img src="assets/ui/button_play_again.svg" alt="" aria-hidden="true"><span class="sr-only">Play again</span>
       </button>
+    </section>
+
+    <section id="leaderboard-screen" class="screen leaderboard-screen">
+      <button class="back-button" id="leaderboard-back" aria-label="Back to welcome"> <span aria-hidden="true">←</span></button>
+      <p class="eyebrow">YOUR BEST RESULTS</p><h1 class="leaderboard-title">🏆 TOP 10</h1>
+      <div class="leaderboard-tabs"><button class="leader-tab selected" data-board="multiply">✖ MULTIPLICATION</button><button class="leader-tab" data-board="divide">÷ DIVISION</button></div>
+      <ol id="leaderboard-list" class="leaderboard-list"></ol>
+      <p class="leaderboard-note">Scores are saved only in this browser on this device.</p>
+      <button id="leaderboard-done" class="small-action">BACK TO GAME</button>
     </section>
     <footer class="footer-note">MADE FOR CURIOUS MINDS <span>♡</span></footer>
   </main>
