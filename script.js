@@ -240,6 +240,11 @@
   document.querySelectorAll(".leader-time-tab").forEach(btn => btn.addEventListener("click", () => renderBoard(boardMode, btn.dataset.duration)));
   $("leaderboard-back").addEventListener("click", () => showScreen("welcome-screen"));
   $("leaderboard-done").addEventListener("click", () => showScreen("welcome-screen"));
+  $("reset-top10").addEventListener("click", () => {
+    if (!confirm("Are you sure you want to reset all TOP 10 scores for Multiplication and Division across all time settings? This cannot be undone.")) return;
+    try { localStorage.removeItem(STORAGE_KEY); } catch (_) {}
+    renderBoard(boardMode, boardDuration);
+  });
   $("play-again").addEventListener("click", () => {
     stopTimers();
     $("confetti-layer").classList.remove("show");

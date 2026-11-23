@@ -195,3 +195,7 @@ button:active{transform:translateY(3px) scale(.985)}
 .leader-rank{width:25px;height:25px;display:grid;place-items:center;border-radius:50%;background:#ffe7a8;color:#8b6427}
 .leader-points{font-size:19px;color:#0876bd}.empty-board{padding:25px 14px;background:rgba(255,255,255,.8);border-radius:15px;color:#5683a1;font-weight:800}
 @media(max-width:650px){.leaderboard-screen{padding-top:12px}.leaderboard-tabs{gap:5px}.leader-tab{font-size:10px;padding:9px 3px}.leader-time-tab{font-size:10px}}
+
+/* Reset leaderboard action */
+.reset-action{background:#f3a3a3;box-shadow:0 3px 0 #d47e7e}
+.reset-action:hover{filter:brightness(.98)}
